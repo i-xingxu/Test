@@ -1,0 +1,56 @@
+# coding = utf-8
+import logging,os
+from common import tool,conf
+
+
+class Logger():
+    '''
+    日志输出
+    '''
+    def __init__(self,clevel = logging.DEBUG,Flevel = logging.DEBUG):
+        '''
+        :param clevel:
+        :param Flevel:
+        :return:
+        '''
+        try:
+            cf=conf.Conf()
+            c=cf.get_conf_data("logPath")
+            os.chdir(c["logPath"])
+            t=tool.Time()
+            date=t.get_now_time()
+            self.logger = logging.getLogger(date+".log")
+            self.logger.setLevel(logging.DEBUG)
+            fmt = logging.Formatter('[%(asctime)s] [%(levelname)s] %(message)s', '%Y-%m-%d %H:%M:%S')
+            #设置CMD日志
+            sh = logging.StreamHandler()
+            sh.setFormatter(fmt)
+            sh.setLevel(clevel)
+            #设置文件日志
+            fh = logging.FileHandler(date+".log")
+            fh.setFormatter(fmt)
+            fh.setLevel(Flevel)
+            self.logger.addHandler(sh)
+            self.logger.addHandler(fh)
+        except Exception as e:
+            print(e)
+
+
+    def debug(self,message):
+        self.logger.debug(message)
+
+
+    def info(self,message):
+        self.logger.info(message)
+
+
+    def war(self,message):
+      self.logger.warn(message)
+
+
+    def error(self,message):
+      self.logger.error(message)
+
+
+    def cri(self,message):
+      self.logger.critical(message)

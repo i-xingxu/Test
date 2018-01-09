@@ -1,5 +1,5 @@
 #coding=utf-8
-import configparser
+import configparser,os
 
 
 class NewConfigParser(configparser.ConfigParser):
@@ -21,7 +21,11 @@ class Conf():
     '''
     使用继承后的配置文件类
     '''
-    def get_conf_data(self,path,name):
+
+    def __init__(self,path=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))+"\\conf"):
+        self.path=path
+
+    def get_conf_data(self,name):
         '''
         获取配置文件内容
         :param path: 配置文件路径
@@ -29,7 +33,7 @@ class Conf():
         '''
         try:
             cf=NewConfigParser()
-            cf.read(path,"utf-8")
+            cf.read(self.path,"utf-8")
             cf.sections()
             confData=cf.options(name)
             cfData={}
@@ -45,5 +49,5 @@ class Conf():
 
 
 # c=Conf()
-# d=c.get_conf_data(r"D:\jenkins\workspace\xf_ui_automatedtesing\Conf\Test.conf",r"xfXmlPath")
+# d=c.get_conf_data(r"xfXmlPath")
 # print(d)
