@@ -6,7 +6,7 @@ class XmlOperation():
     """
     操作Xml文件
     """
-    def get_xml_data(self, page, element, path):
+    def get_xml_data(self, page, element):
         '''
         获取xml数据，传入二级节点名称，三级节点名称，xml文件路径，以字典格式返回
         :param page:二级页面名称
@@ -17,7 +17,7 @@ class XmlOperation():
         try:
             cf=conf.Conf()
             print("从配置文件获取xml地址")
-            p=cf.get_conf_data(path,"XmlPath")
+            p=cf.get_conf_data("XmlPath")
             x = xml.etree.cElementTree.parse(p["path"])
             root = x.getroot()
             print("获取节点信息")

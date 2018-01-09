@@ -24,10 +24,10 @@ class SetUp():
         path = self.CONF_PATH
         try:
             cf = conf.Conf()
-            info = cf.get_conf_data(path, "DeviceInfo")
+            info = cf.get_conf_data( "DeviceInfo")
             print("读取机型信息：%s" % info)
-            driver = webdriver.Remote(cf.get_conf_data(path, "remote")["addr"], info)
-            print("读取remote信息：%s" % cf.get_conf_data(path, "remote")["addr"])
+            driver = webdriver.Remote(cf.get_conf_data( "remote")["addr"], info)
+            print("读取remote信息：%s" % cf.get_conf_data("remote")["addr"])
             return driver
         except Exception as e:
             print(e)
@@ -47,7 +47,7 @@ class App():
         '''
         self.driver = driver
         cf = conf.Conf()
-        self.SCR_PATH = cf.get_conf_data(path, "ScreenShotPath")["path"]
+        self.SCR_PATH = cf.get_conf_data( "ScreenShotPath")["path"]
 
     def get_element(self, elementinfo, waittime=1):
         '''
@@ -190,7 +190,7 @@ class Web():
     def __init__(self, path, driver):
         self.driver = driver
         cf=conf.Conf()
-        self.SCR_PATH = cf.get_conf_data(path, "ScreenShotPath")["path"]
+        self.SCR_PATH = cf.get_conf_data( "ScreenShotPath")["path"]
 
     def get_element(self, elementinfo, waittime=1):
         '''
