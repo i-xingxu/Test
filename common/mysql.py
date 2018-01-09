@@ -8,14 +8,14 @@ class Mysql():
     Mysql类
     '''
 
-    def connect_mysql(self, path):
+    def connect_mysql(self):
         '''
         连接数据库方法,传入配置文件地址，获取连接数据库信息，返回游标对象
         :param mysqinfo: 数据库连接信息
         :return:
         '''
         cf=conf.Conf()
-        mysqlInfo=cf.get_conf_data(path,"SqlInfo")
+        mysqlInfo=cf.get_conf_data("SqlInfo")
         try:
             db = pymysql.connect(host=mysqlInfo["ip"], port=int(mysqlInfo["port"]), user=mysqlInfo["usr"],
                                  passwd=mysqlInfo["password"], db=mysqlInfo["database"], charset='utf8')
