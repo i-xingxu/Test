@@ -29,7 +29,7 @@ class Excel():
         '''
         try:
             cf=conf.Conf()
-            d=cf.get_conf_data(path,"excelPath")
+            d=cf.get_conf_data("excelPath")
             # os.chdir(d["xfpath"])
             data = xlrd.open_workbook(d["xlsname"])
             table = data.sheet_by_name(d["sheetname"])  #通过名称获取
