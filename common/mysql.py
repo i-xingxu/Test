@@ -9,16 +9,22 @@ class Mysql():
     '''
 
     def connect_mysql(self):
+        CONF_NAME_SQL="SqlInfo"
+        CONF_NAME_IP="ip"
+        CONF_NAME_PORT="port"
+        CONF_NAME_USR="usr"
+        CONF_NAME_PSW="password"
+        CONF_NAME_DB="database"
         '''
         连接数据库方法,传入配置文件地址，获取连接数据库信息，返回游标对象
         :param mysqinfo: 数据库连接信息
         :return:
         '''
         cf=conf.Conf()
-        mysqlInfo=cf.get_conf_data("SqlInfo")
+        mysqlInfo=cf.get_conf_data(CONF_NAME_SQL)
         try:
-            db = pymysql.connect(host=mysqlInfo["ip"], port=int(mysqlInfo["port"]), user=mysqlInfo["usr"],
-                                 passwd=mysqlInfo["password"], db=mysqlInfo["database"], charset='utf8')
+            db = pymysql.connect(host=mysqlInfo[CONF_NAME_IP], port=int(mysqlInfo[CONF_NAME_PORT]), user=mysqlInfo[CONF_NAME_USR],
+                                 passwd=mysqlInfo[CONF_NAME_PSW], db=mysqlInfo[CONF_NAME_DB], charset='utf8')
             self.cur = db.cursor()
             print("成功连接%s数据库" % mysqlInfo["ip"])
 

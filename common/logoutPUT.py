@@ -8,6 +8,8 @@ class Logger():
     日志输出
     '''
     def __init__(self,clevel = logging.DEBUG,Flevel = logging.DEBUG):
+        CONF_NAME_LOGPATH="logPath"
+        CONF_NAME_PATHINFO="logPath"
         '''
         :param clevel:
         :param Flevel:
@@ -15,8 +17,8 @@ class Logger():
         '''
         try:
             cf=conf.Conf()
-            c=cf.get_conf_data("logPath")
-            os.chdir(c["logPath"])
+            c=cf.get_conf_data(CONF_NAME_LOGPATH)
+            os.chdir(c[CONF_NAME_PATHINFO])
             t=tool.Time()
             date=t.get_now_time()
             self.logger = logging.getLogger(date+".log")

@@ -22,6 +22,10 @@ class Excel():
     用来操作Excel
     '''
     def excelRead(self,path):
+        CONF_NAME_EXCELPATH="excelPath"
+        CONF_NAME_XLSNAME="xlsname"
+        CONF_NAME_SHEETNAME="sheetname"
+
         '''
 
         :param path: 配置文件所在路径
@@ -29,10 +33,10 @@ class Excel():
         '''
         try:
             cf=conf.Conf()
-            d=cf.get_conf_data("excelPath")
+            d=cf.get_conf_data(CONF_NAME_EXCELPATH)
             # os.chdir(d["xfpath"])
-            data = xlrd.open_workbook(d["xlsname"])
-            table = data.sheet_by_name(d["sheetname"])  #通过名称获取
+            data = xlrd.open_workbook(CONF_NAME_XLSNAME)
+            table = data.sheet_by_name(CONF_NAME_SHEETNAME)  #通过名称获取
             return table
         except Exception as e:
             print(e)
