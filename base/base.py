@@ -7,7 +7,7 @@ import time
 import os
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium import webdriver
-
+import allure
 
 
 class SetUp():
@@ -147,6 +147,8 @@ class App():
             self.lg.info("保存图片：%s" % picNam)
             os.chdir(self.SCR_PATH)
             self.driver.save_screenshot(picNam)
+            f = open(picNam,'rb').read()
+            allure.attach('This is a picture',f,allure.attach_type.PNG)
         except Exception as e:
             self.lg.error(e)
             self.lg.error("获取截图失败！")
@@ -294,6 +296,8 @@ class Web():
             self.lg.info("保存图片：%s" % picNam)
             os.chdir(self.SCR_PATH)
             self.driver.save_screenshot(picNam)
+            f = open(picNam,'rb').read()
+            allure.attach('This is a picture',f,allure.attach_type.PNG)
         except Exception as e:
             self.lg.error(e)
             self.lg.error("获取截图失败！")
