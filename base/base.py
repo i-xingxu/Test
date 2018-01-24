@@ -16,6 +16,9 @@ class SetUp():
         self.CONF_PATH = CONF_PATH
 
     def app_setup(self):
+        CONF_NAME_DEVICEINFO="DeviceInfo"
+        CONF_NAME_REMOTE="remote"
+        CONF_NAME_ADDR="addr"
         '''
         启动app，从配置文件中获取机型信息，remote的地址ixnxi
         :param deviceinfo:
@@ -24,10 +27,10 @@ class SetUp():
         path = self.CONF_PATH
         try:
             cf = conf.Conf()
-            info = cf.get_conf_data( "DeviceInfo")
+            info = cf.get_conf_data(CONF_NAME_DEVICEINFO)
             print("读取机型信息：%s" % info)
-            driver = webdriver.Remote(cf.get_conf_data( "remote")["addr"], info)
-            print("读取remote信息：%s" % cf.get_conf_data("remote")["addr"])
+            driver = webdriver.Remote(cf.get_conf_data(CONF_NAME_REMOTE)[CONF_NAME_ADDR], info)
+            print("读取remote信息：%s" % cf.get_conf_data(CONF_NAME_REMOTE)[CONF_NAME_ADDR])
             return driver
         except Exception as e:
             print(e)
@@ -40,6 +43,8 @@ class App():
     '''
 
     def __init__(self, driver, path):
+        CONF_NAME_SCRPATH="ScreenShotPath"
+        CONF_NAME_PATH="path"
         '''
         传入driver对象
         :param driver:
@@ -47,7 +52,7 @@ class App():
         '''
         self.driver = driver
         cf = conf.Conf()
-        self.SCR_PATH = cf.get_conf_data( "ScreenShotPath")["path"]
+        self.SCR_PATH = cf.get_conf_data(CONF_NAME_SCRPATH)[CONF_NAME_PATH]
 
     def get_element(self, elementinfo, waittime=1):
         '''
