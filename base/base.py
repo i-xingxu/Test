@@ -312,7 +312,13 @@ class Web():
         except Exception as e:
             self.lg.error(e)
             self.lg.error("输入内容失败！")
-
+    def get_url(self,url):
+        try:
+            self.lg.info("打开url%s"%url)
+            self.driver.get(url)
+        except Exception as e:
+            self.lg.error(e)
+            self.lg.error("打开url失败！")
 # s=SetUp(r"../test.conf")
 # driver=s.app_setup()
 # a=App(driver,"../test.conf")
