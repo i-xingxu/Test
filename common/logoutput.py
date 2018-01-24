@@ -8,8 +8,8 @@ class Logger():
     日志输出
     '''
     def __init__(self,clevel = logging.DEBUG,Flevel = logging.DEBUG):
-        CONF_NAME_LOGPATH="logPath"
-        CONF_NAME_PATHINFO="logPath"
+        CONF_NAME_LOGPATH="LogPath"
+        CONF_NAME_PATHINFO="LogPath"
         '''
         :param clevel:
         :param Flevel:

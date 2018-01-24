@@ -15,8 +15,8 @@ class SetUp():
     appbase中setup类，用来启动app，返回一个driver对象
     '''
 
-    def __init__(self, CONF_PATH):
-        self.CONF_PATH = CONF_PATH
+    def __init__(self):
+        # self.CONF_PATH = CONF_PATH
         self.lg=logoutput.Logger()
     def app_setup(self):
         CONF_NAME_DEVICEINFO="DeviceInfo"
@@ -27,7 +27,7 @@ class SetUp():
         :param deviceinfo:
         :return:
         '''
-        path = self.CONF_PATH
+        # path = self.CONF_PATH
         try:
             cf = conf.Conf()
             info = cf.get_conf_data(CONF_NAME_DEVICEINFO)

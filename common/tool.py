@@ -22,7 +22,7 @@ class Excel():
     用来操作Excel
     '''
     def excelRead(self,path):
-        CONF_NAME_EXCELPATH="excelPath"
+        CONF_NAME_EXCELPATH="ExcelPath"
         CONF_NAME_XLSNAME="xlsname"
         CONF_NAME_SHEETNAME="sheetname"
 
