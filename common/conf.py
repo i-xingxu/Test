@@ -1,5 +1,5 @@
 #coding=utf-8
-import configparser,os
+import configparser,os,sys
 
 
 class NewConfigParser(configparser.ConfigParser):
@@ -23,7 +23,9 @@ class Conf():
     '''
 
     def __init__(self,path=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))+"\\conf"):
-        self.path=path
+        CONF_FILE_NAME="test.conf"
+        self.path=path+"\\"+CONF_FILE_NAME
+
 
     def get_conf_data(self,name):
         '''
