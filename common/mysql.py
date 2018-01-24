@@ -1,12 +1,15 @@
 # coding=utf-8
 import pymysql
 from common import conf
+from common import logoutput
 
 
 class Mysql():
     '''
     Mysql类
     '''
+    def __init__(self):
+        self.lg=logoutput.Logger()
 
     def connect_mysql(self):
         CONF_NAME_SQL="SqlInfo"
@@ -26,11 +29,11 @@ class Mysql():
             db = pymysql.connect(host=mysqlInfo[CONF_NAME_IP], port=int(mysqlInfo[CONF_NAME_PORT]), user=mysqlInfo[CONF_NAME_USR],
                                  passwd=mysqlInfo[CONF_NAME_PSW], db=mysqlInfo[CONF_NAME_DB], charset='utf8')
             self.cur = db.cursor()
-            print("成功连接%s数据库" % mysqlInfo["ip"])
+            self.lg.info("成功连接%s数据库" % mysqlInfo["ip"])
 
         except Exception as e:
-            print("数据库连接失败！")
-            print(e)
+            self.lg.error("数据库连接失败！")
+            self.lg.error(e)
 
     def close_connect(self):
         '''
@@ -39,9 +42,9 @@ class Mysql():
         '''
         try:
             self.cur.close()
-            print("成功关闭连接！")
+            self.lg.info("成功关闭连接！")
         except Exception as e:
-            print(e)
+            self.lg.error(e)
 
     def get_mysql_data(self, casename):
         '''
@@ -66,11 +69,11 @@ class Mysql():
                     caseDatas.append(caseData)
                 return caseDatas
             except Exception as a:
-                print(a)
-                print("执行sql语句%s出错" % dataSql)
+                self.lg.error(a)
+                self.lg.error("执行sql语句%s出错" % dataSql)
         except Exception as e:
-            print(e)
-            print("执行sql语句%s出错" % sql)
+            self.lg.error(e)
+            self.lg.error("执行sql语句%s出错" % sql)
 
 
 # mysqlinfo = {"ip": "192.168.2.157", "port": "3306", "usr": "root", "password": "root", "database": "autotest"}

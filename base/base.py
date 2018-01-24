@@ -47,7 +47,6 @@ class SetUp():
             self.lg.error(e)
 
 
-
 class App():
     '''
     appbase类

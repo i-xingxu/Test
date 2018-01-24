@@ -39,4 +39,4 @@ class Excel():
             table = data.sheet_by_name(CONF_NAME_SHEETNAME)  #通过名称获取
             return table
         except Exception as e:
-            print(e)
+            self.lg.error(e)
