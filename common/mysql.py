@@ -3,13 +3,14 @@ import pymysql
 from common import conf
 from common import logoutput
 
-
 class Mysql():
     '''
     Mysql类
     '''
     def __init__(self):
         self.lg=logoutput.Logger()
+        self.cf=conf.Conf()
+        self.IntegrityError=pymysql.IntegrityError
 
     def connect_mysql(self):
         CONF_NAME_SQL="SqlInfo"
@@ -23,8 +24,8 @@ class Mysql():
         :param mysqinfo: 数据库连接信息
         :return:
         '''
-        cf=conf.Conf()
-        mysqlInfo=cf.get_conf_data(CONF_NAME_SQL)
+
+        mysqlInfo=self.cf.get_conf_data(CONF_NAME_SQL)
         try:
             db = pymysql.connect(host=mysqlInfo[CONF_NAME_IP], port=int(mysqlInfo[CONF_NAME_PORT]), user=mysqlInfo[CONF_NAME_USR],
                                  passwd=mysqlInfo[CONF_NAME_PSW], db=mysqlInfo[CONF_NAME_DB], charset='utf8')
@@ -47,12 +48,15 @@ class Mysql():
             self.lg.error(e)
 
     def get_mysql_data(self, casename):
+        CONF_SEC_PLAT="Platform"
+        CONF_OPT_PLAT="platform"
+        platNum=self.cf.get_conf_data(CONF_SEC_PLAT)[CONF_OPT_PLAT]
         '''
         获取数据库数据
         :return:
         '''
         # select id from case_name where case_name=casename
-        sql = "select id from case_name where case_name=\'" + casename + "\'"
+        sql = "select id from case_name where case_name=\'" + casename + "\'"+"and pid="+platNum
         try:
             self.cur.execute(sql)
             caseId = self.cur.fetchone()[0]
@@ -77,8 +81,9 @@ class Mysql():
 
 
 # mysqlinfo = {"ip": "192.168.2.157", "port": "3306", "usr": "root", "password": "root", "database": "autotest"}
+
 # m = Mysql()
-# c = m.connect_mysql(mysqlinfo)
-# data = m.get_mysql_data("退出")
+# c = m.connect_mysql()
+# data = m.get_mysql_data("测试")
 # print(data)
 # m.close_connect()
