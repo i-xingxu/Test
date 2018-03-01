@@ -1,9 +1,8 @@
 # coding=utf-8
 import time
 import xlrd
-import xlwt
-import os
 from common import conf
+from common import logoutput
 
 class Time():
     '''
@@ -21,6 +20,9 @@ class Excel():
     '''
     用来操作Excel
     '''
+    def __init__(self):
+        self.lg=logoutput.Logger()
+
     def excelRead(self,path):
         CONF_NAME_EXCELPATH="ExcelPath"
         CONF_NAME_XLSNAME="xlsname"
