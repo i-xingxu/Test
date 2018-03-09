@@ -7,9 +7,13 @@ class XmlOperation():
     操作Xml文件
     """
     def __init__(self):
-        self.lg=logoutput.Logger()
-    def get_xml_data(self, page, element):
+
         CONF_NAME_XMLPATH="XmlPath"
+        self.lg=logoutput.Logger()
+        cf=conf.Conf()
+        self.lg.info("从配置文件获取xml地址")
+        self.p=cf.get_conf_data(CONF_NAME_XMLPATH)
+    def get_xml_data(self, page, element):
         CONF_PATH="path"
         '''
         获取xml数据，传入二级节点名称，三级节点名称，xml文件路径，以字典格式返回
@@ -19,10 +23,7 @@ class XmlOperation():
         :return: 返回元素信息
         '''
         try:
-            cf=conf.Conf()
-            self.lg.info("从配置文件获取xml地址")
-            p=cf.get_conf_data(CONF_NAME_XMLPATH)
-            x = xml.etree.cElementTree.parse(p[CONF_PATH])
+            x = xml.etree.cElementTree.parse(self.p[CONF_PATH])
             root = x.getroot()
             self.lg.info("获取节点信息")
             a = root.find(page)

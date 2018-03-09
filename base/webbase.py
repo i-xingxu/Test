@@ -48,6 +48,14 @@ class Web():
                 self.driver.quit()
             else:
                 return element
+            # for i in range(60):
+            #     if i>=59:
+            #         self.lg.error("定位元素超时：%s"%elementinfo["desc"])
+            #     try:
+            #         if self.driver.find_element(elementinfo["type"], elementinfo["value"]):
+            #             return self.driver.find_element(elementinfo["type"], elementinfo["value"])
+            #     except:
+            #         self.lg.error("未找到元素：%s"%elementinfo["desc"])
         except Exception as e:
             self.lg.error(e)
             self.lg.error("未定位到元素:%s" % elementinfo["desc"])
@@ -65,18 +73,20 @@ class Web():
             WebDriverWait(self.driver, waittime).until(
                 lambda x: x.find_element(elementinfo["type"], elementinfo["value"]))
             self.lg.info("元素出现：%s" % elementinfo["desc"])
+            return True
         except Exception as e:
             self.lg.error(e)
             self.lg.error("元素未出现：%s" % elementinfo["desc"])
             self.get_screenshot()
+            return False
 
-    def click(self, elementinfo):
+    def click(self, elementinfo,waittime=1):
         '''
         点击操作
         :param elementinfo:
         :return:
         '''
-        e = self.get_element(elementinfo)
+        e = self.get_element(elementinfo,waittime)
         try:
             e.click()
             self.lg.info("点击：%s" % elementinfo["desc"])
@@ -138,11 +148,22 @@ class Web():
             self.lg.error("输入内容失败！")
     def get_url(self,url):
         try:
+            self.driver.set_page_load_timeout(15)
             self.lg.info("打开url:%s"%url)
             self.driver.get(url)
         except Exception as e:
             self.lg.error(e)
             self.lg.error("打开url失败！")
             self.get_screenshot()
+
+    def get_text(self,elementinfo,waittime=1):
+
+        try:
+            self.lg.info("获取：“{}”的值".format(elementinfo["desc"]))
+            return self.get_element(elementinfo,waittime).text
+
+        except Exception as e:
+            self.lg.error(e)
+            self.lg.error("未获取到：“{}”的值".format(elementinfo["desc"]))
 
 

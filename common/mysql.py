@@ -30,6 +30,7 @@ class Mysql():
             db = pymysql.connect(host=mysqlInfo[CONF_NAME_IP], port=int(mysqlInfo[CONF_NAME_PORT]), user=mysqlInfo[CONF_NAME_USR],
                                  passwd=mysqlInfo[CONF_NAME_PSW], db=mysqlInfo[CONF_NAME_DB], charset='utf8')
             self.cur = db.cursor()
+            self.db=db
             self.lg.info("成功连接%s数据库" % mysqlInfo["ip"])
 
         except Exception as e:
@@ -56,34 +57,41 @@ class Mysql():
         :return:
         '''
         # select id from case_name where case_name=casename
-        sql = "select id from case_name where case_name=\'" + casename + "\'"+"and pid="+platNum
+        self.connect_mysql()
         try:
-            self.cur.execute(sql)
-            caseId = self.cur.fetchone()[0]
-            dataSql = "select * from test_data where cid=" + str(caseId)
+            sql = "select id from case_name where case_name=\'" + casename + "\'"+"and pid="+platNum
             try:
-                self.cur.execute(dataSql)
-                data = self.cur.fetchall()
-                caseDatas = []
-                for d in data:
-                    caseData = []
-                    for i in range(0, len((d[2]).split(";"))):
-                        caseData.append((d[2]).split(";")[i])
-                    caseData.append(d[3])
-                    caseDatas.append(caseData)
-                return caseDatas
-            except Exception as a:
-                self.lg.error(a)
-                self.lg.error("执行sql语句%s出错" % dataSql)
-        except Exception as e:
-            self.lg.error(e)
-            self.lg.error("执行sql语句%s出错" % sql)
-
+                self.cur.execute(sql)
+                caseId = self.cur.fetchone()[0]
+                dataSql = "select imput_data, except_data from test_data where cid=" + str(caseId)
+                try:
+                    self.cur.execute(dataSql)
+                    data = self.cur.fetchall()
+                    caseDatas = []
+                    for d in data:
+                        d=d[0]+d[1]
+                        caseData = []
+                        for i in range(0, len((d).split(";"))):
+                            if d.split(";")[i]!='':
+                                caseData.append(d.split(";")[i])
+                        # caseData.append(d)
+                        caseDatas.append(caseData)
+                    return caseDatas
+                except Exception as a:
+                    self.lg.error(a)
+                    self.lg.error("执行sql语句%s出错" % dataSql)
+            except Exception as e:
+                self.lg.error(e)
+                self.lg.error("执行sql语句%s出错" % sql)
+        finally:
+            self.close_connect()
+    def sql_commit(self):
+        self.db.commit()
 
 # mysqlinfo = {"ip": "192.168.2.157", "port": "3306", "usr": "root", "password": "root", "database": "autotest"}
 
 # m = Mysql()
 # c = m.connect_mysql()
-# data = m.get_mysql_data("测试")
+# data = m.get_mysql_data("修改手机号")
 # print(data)
 # m.close_connect()
