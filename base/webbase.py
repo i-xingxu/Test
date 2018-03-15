@@ -148,7 +148,7 @@ class Web():
             self.lg.error("输入内容失败！")
     def get_url(self,url):
         try:
-            self.driver.set_page_load_timeout(15)
+            self.driver.set_page_load_timeout(30)
             self.lg.info("打开url:%s"%url)
             self.driver.get(url)
         except Exception as e:

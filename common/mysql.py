@@ -1,5 +1,6 @@
 # coding=utf-8
 import pymysql
+import time
 from common import conf
 from common import logoutput
 
@@ -24,18 +25,22 @@ class Mysql():
         :param mysqinfo: 数据库连接信息
         :return:
         '''
-
-        mysqlInfo=self.cf.get_conf_data(CONF_NAME_SQL)
-        try:
-            db = pymysql.connect(host=mysqlInfo[CONF_NAME_IP], port=int(mysqlInfo[CONF_NAME_PORT]), user=mysqlInfo[CONF_NAME_USR],
-                                 passwd=mysqlInfo[CONF_NAME_PSW], db=mysqlInfo[CONF_NAME_DB], charset='utf8')
-            self.cur = db.cursor()
-            self.db=db
-            self.lg.info("成功连接%s数据库" % mysqlInfo["ip"])
-
-        except Exception as e:
-            self.lg.error("数据库连接失败！")
-            self.lg.error(e)
+        i=0
+        while i<60:
+            mysqlInfo=self.cf.get_conf_data(CONF_NAME_SQL)
+            try:
+                db = pymysql.connect(host=mysqlInfo[CONF_NAME_IP], port=int(mysqlInfo[CONF_NAME_PORT]), user=mysqlInfo[CONF_NAME_USR],
+                                     passwd=mysqlInfo[CONF_NAME_PSW], db=mysqlInfo[CONF_NAME_DB], charset='utf8')
+                self.cur = db.cursor()
+                self.db=db
+                self.lg.info("成功连接%s数据库" % mysqlInfo["ip"])
+                break
+            except Exception as e:
+                self.lg.error("数据库连接失败！")
+                self.lg.error(e)
+                i+=1
+                time.sleep(1)
+                continue
 
     def close_connect(self):
         '''
