@@ -7,7 +7,7 @@ import os
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium import webdriver
 import allure
-
+from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 
 class SetUp():
     '''
@@ -17,10 +17,16 @@ class SetUp():
     def __init__(self):
         # self.CONF_PATH = CONF_PATH
         self.lg=logoutput.Logger()
+        self.cf = conf.Conf()
 
     def web_setup(self):
         try:
-            driver=webdriver.Firefox()
+            CONF_FIREFOX="FirefoxPath"
+            CONF_FIR_PATH_NAME="path"
+            print(self.cf.get_conf_data(CONF_FIREFOX)[CONF_FIR_PATH_NAME])
+            binary = FirefoxBinary(self.cf.get_conf_data(CONF_FIREFOX)[CONF_FIR_PATH_NAME])
+            # binary = FirefoxBinary(r'D:\Program Files (x86)\Mozilla Firefox\firefox.exe')
+            driver=webdriver.Firefox(firefox_binary=binary)
             return driver
         except Exception as e:
             self.lg.error(e)
