@@ -30,9 +30,18 @@ class SetUp():
         try:
             cf = conf.Conf()
             info = cf.get_conf_data(CONF_NAME_DEVICEINFO)
-            self.lg.info("读取机型信息：%s" % info)
-            driver = appwebdriver.Remote(cf.get_conf_data(CONF_NAME_REMOTE)[CONF_NAME_ADDR], info)
-            self.lg.info("读取remote信息：%s" % cf.get_conf_data(CONF_NAME_REMOTE)[CONF_NAME_ADDR])
+            desired_caps = {
+                "platformName":info["platformName"],
+                "platformVersion":info["platformVersion"],
+                "deviceName":info["deviceName"],
+                "appPackage":info["appPackage"],
+                "appActivity":info["appActivity"],
+                "automationName":info["automationName"]
+
+            }
+            self.lg.info("读取机型信息：%s" % desired_caps)
+            driver = appwebdriver.Remote(info[CONF_NAME_REMOTE], desired_caps)
+            self.lg.info("读取remote信息：%s" % info[CONF_NAME_REMOTE])
             return driver
         except Exception as e:
             self.lg.war(e)
@@ -51,7 +60,7 @@ class App():
     appbase类
     '''
 
-    def __init__(self, driver, path):
+    def __init__(self, driver):
         CONF_NAME_SCRPATH="ScreenShotPath"
         CONF_NAME_PATH="path"
         self.lg=logoutput.Logger()
