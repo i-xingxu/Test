@@ -23,10 +23,12 @@ class SetUp():
         try:
             CONF_FIREFOX="FirefoxPath"
             CONF_FIR_PATH_NAME="path"
+            CONF_FIR_PROFILE="profile"
             print(self.cf.get_conf_data(CONF_FIREFOX)[CONF_FIR_PATH_NAME])
             binary = FirefoxBinary(self.cf.get_conf_data(CONF_FIREFOX)[CONF_FIR_PATH_NAME])
             # binary = FirefoxBinary(r'D:\Program Files (x86)\Mozilla Firefox\firefox.exe')
-            driver=webdriver.Firefox(firefox_binary=binary)
+            fp=webdriver.FirefoxProfile(self.cf.get_conf_data(CONF_FIREFOX)[CONF_FIR_PROFILE])
+            driver=webdriver.Firefox(firefox_binary=binary,firefox_profile=fp)
             return driver
         except Exception as e:
             self.lg.error(e)
