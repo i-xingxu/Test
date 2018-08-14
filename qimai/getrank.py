@@ -14,9 +14,12 @@ class GetRank():
     def close_driver(self):
         self.driver.driver.quit()
 
+    def get_page_source(self):
+        return  self.driver.get_page_source()
+
 gf=GetRank()
 try:
-    pass
+    print(gf.get_page_source())
 
 except Ellipsis as e:
     gf.lg.error("执行错误！")
