@@ -155,8 +155,13 @@ class Web():
             self.lg.error(e)
             self.lg.error("输入内容失败！")
     def get_url(self,url):
+        '''
+        获取当前页面的url
+        :param url:
+        :return:
+        '''
         try:
-            self.driver.set_page_load_timeout(30)
+            self.driver.set_page_load_timeout(time_to_wait=30)
             self.lg.info("打开url:%s"%url)
             self.driver.get(url)
         except Exception as e:
@@ -165,7 +170,9 @@ class Web():
             self.get_screenshot()
 
     def get_text(self,elementinfo,waittime=1):
-
+        '''
+        获取页面的值
+        '''
         try:
             self.lg.info("获取：“{}”的值".format(elementinfo["desc"]))
             return self.get_element(elementinfo,waittime).text
@@ -173,5 +180,29 @@ class Web():
         except Exception as e:
             self.lg.error(e)
             self.lg.error("未获取到：“{}”的值".format(elementinfo["desc"]))
+
+
+    def get_attribute(self,elementinfo,attribute,waittime=1):
+        '''
+
+        :param elementinfo:
+        :param waittime:
+        :param attribute:
+        :return:
+        '''
+        try:
+            self.lg.info("获取：“{}”的属性值".format(elementinfo["desc"]))
+            self.get_element(elementinfo,waittime).get_attribute(attribute)
+        except Ellipsis as e:
+            self.lg.error("未获取到：“{}”的属性值".format(elementinfo["desc"]))
+
+    def scroll_page(self):
+
+        try:
+            self.lg.info("滚动页面")
+            js="var q=document.documentElement.scrollTpo=1000"
+            self.driver.execute_script(js)
+        except Ellipsis as e:
+            self.lg.error("滚动页面失败")
 
 
