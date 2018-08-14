@@ -197,6 +197,10 @@ class Web():
             self.lg.error("未获取到：“{}”的属性值".format(elementinfo["desc"]))
 
     def scroll_page(self):
+        '''
+        滚动页面
+        :return:
+        '''
 
         try:
             self.lg.info("滚动页面")
@@ -204,5 +208,14 @@ class Web():
             self.driver.execute_script(js)
         except Ellipsis as e:
             self.lg.error("滚动页面失败")
+
+    def get_page_source(self):
+
+        try:
+            self.lg.info("获取页面信息")
+            return  self.driver.page_source
+        except Ellipsis as e:
+            self.lg.error(e)
+
 
 
