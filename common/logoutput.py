@@ -30,7 +30,7 @@ class Logger():
                 sh.setFormatter(fmt)
                 sh.setLevel(clevel)
                 #设置文件日志
-                fh = logging.FileHandler(date+".log")
+                fh = logging.FileHandler(date+".log",encoding='utf-8')
                 fh.setFormatter(fmt)
                 fh.setLevel(Flevel)
                 self.logger.addHandler(sh)
