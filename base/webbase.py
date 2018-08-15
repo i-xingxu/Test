@@ -130,7 +130,7 @@ class Web():
         '''
         try:
             t = tool.Time()
-            picNam = t.get_now_time() + ".jpg"
+            picNam = t.get_now_time() + ".png"
             self.lg.info("保存图片：%s" % picNam)
             os.chdir(self.SCR_PATH)
             self.driver.save_screenshot(picNam)
@@ -192,7 +192,7 @@ class Web():
         '''
         try:
             self.lg.info("获取：“{}”的属性值".format(elementinfo["desc"]))
-            self.get_element(elementinfo,waittime).get_attribute(attribute)
+            return  self.get_element(elementinfo,waittime).get_attribute(attribute)
         except Ellipsis as e:
             self.lg.error("未获取到：“{}”的属性值".format(elementinfo["desc"]))
 
@@ -210,12 +210,31 @@ class Web():
             self.lg.error("滚动页面失败")
 
     def get_page_source(self):
-
+        '''
+        获取整个页面所有内容
+        :return:
+        '''
         try:
             self.lg.info("获取页面信息")
             return  self.driver.page_source
         except Ellipsis as e:
             self.lg.error(e)
 
+    def is_exist(self,elementinfo,waittime=1):
+        '''
+        判断元素是否存在，存在返回True，不存在返回False
+        :param elementinfo:
+        :param waittime:
+        :return:
+        '''
+
+        try:
+            time.sleep(waittime)
+            q=self.driver.find_element(elementinfo["type"], elementinfo["value"])
+            self.lg.info("“{}”元素存在".format(elementinfo["desc"]))
+            return  True
+        except:
+            self.lg.info("“{}”元素不存在".format(elementinfo["desc"]))
+            return False
 
 
