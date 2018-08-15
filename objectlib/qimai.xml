@@ -5,4 +5,10 @@
          <app_index_search_btn type="id" value="com.tencent.android.qqdownloader:id/a5t" desc="搜索按钮"></app_index_search_btn>
          <app_search_btn type="id" value="com.tencent.android.qqdownloader:id/yv" dexc="搜索页输入框"></app_search_btn>
         </app_index>
+        <web_page>
+            <web_keywordlist_keyword type="css selector" value="div.keyword-list" desc="关键词列表"></web_keywordlist_keyword>
+            <web_keywordlist_nextbtn type="class name" value="ivu-icon ivu-icon-ios-arrow-right" desc="下一页按钮"></web_keywordlist_nextbtn>
+            <web_keywordlist_nextbtndisable type="class name" value="ivu-page-next ivu-page-disabled" desc="下一页按钮不可用"></web_keywordlist_nextbtndisable>
+        </web_page>
+
 </page>

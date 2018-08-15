@@ -130,7 +130,7 @@ class Web():
         '''
         try:
             t = tool.Time()
-            picNam = t.get_now_time() + ".jpg"
+            picNam = t.get_now_time() + ".png"
             self.lg.info("保存图片：%s" % picNam)
             os.chdir(self.SCR_PATH)
             self.driver.save_screenshot(picNam)
@@ -217,5 +217,14 @@ class Web():
         except Ellipsis as e:
             self.lg.error(e)
 
+    def is_disapayed(self,elementinfo,waittime=1):
+
+        try:
+            time.sleep(waittime)
+            q=self.driver.find_element(elementinfo["type"], elementinfo["value"]).is_enabled()
+            print(q)
+            return q
+        except:
+            return False
 
 
