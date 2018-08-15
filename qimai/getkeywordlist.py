@@ -27,10 +27,9 @@ class GetKeywordlist():
     def click_next(self):
 
         n=self.getxml.get_xml_data("web_page","web_keywordlist_nextbtn")
-        nd=self.getxml.get_xml_data("web_page","web_keywordlist_nextbtndisable")
-        flag=self.driver.is_disapayed(n)
-        # m=self.driver.get_attribute(n,"class name")
-        if flag:
+        # nd=self.getxml.get_xml_data("web_page","web_keywordlist_nextbtndisable")
+        nextClass=self.driver.get_attribute(n,"class")
+        if n["value"]==nextClass:
             self.driver.click(n)
             return 1
         else:
