@@ -22,7 +22,7 @@ class GetKeywordlist():
             newWordList.append(wordList[i])
 
         newWordList.pop(-1)
-        self.lg.info(newWordList)
+        # self.lg.info(newWordList)
         return newWordList
     def click_next(self):
 
@@ -39,7 +39,9 @@ class GetKeywordlist():
 
     def get_all_keyword(self):
         allKeyword=[]
-        self.get_keywords()
+        kw=self.get_keywords()
+        for i in kw:
+            allKeyword.append(i)
         while self.click_next()==1:
             time.sleep(1)
             key=self.get_keywords()
