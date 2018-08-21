@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <page>
-	 <app_index>
-		<app_index_search_iput type="id" value="com.tencent.android.qqdownloader:id/awt" desc="首页搜索输入框"></app_index_search_iput>
-         <app_index_search_btn type="id" value="com.tencent.android.qqdownloader:id/a5t" desc="搜索按钮"></app_index_search_btn>
-         <app_search_btn type="id" value="com.tencent.android.qqdownloader:id/yv" dexc="搜索页输入框"></app_search_btn>
-        </app_index>
+	 <tb_product>
+         <product_ljpl_link type="css selector" value= "[href='#J_Reviews'] " desc="累计评价"></product_ljpl_link>
+         <product_pl_text type="class name" value="tm-rate-fulltxt" desc="评论"></product_pl_text>
+     </tb_product>
 </page>
