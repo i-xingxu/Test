@@ -4,4 +4,5 @@
          <product_ljpl_link type="css selector" value= "[href='#J_Reviews'] " desc="累计评价"></product_ljpl_link>
          <product_pl_text type="class name" value="tm-rate-fulltxt" desc="评论"></product_pl_text>
      </tb_product>
+
 </page>
