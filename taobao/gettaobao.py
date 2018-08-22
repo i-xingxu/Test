@@ -23,15 +23,49 @@ class GetRank():
 
     def get_pl(self):
         pl=self.gx.get_xml_data("tb_product","product_pl_text")
-        plTest=self.driver.get_elements(pl)
-        for p in plTest:
+        plText=self.driver.get_elements(pl)
+        for p in plText:
             self.lg.info(p.text)
+
+    def get_color(self):
+        c=self.gx.get_xml_data("tb_product","product_color_text")
+        colorText=self.driver.get_elements(c)
+        for p in colorText:
+            try:
+                data=p.text
+                data=data.split("\n")
+                color=data[0].split("：")[-1]
+                jinghanliang=data[-1].split("：")[-1]
+                self.lg.info(color)
+                self.lg.info(jinghanliang)
+            except Exception as  e:
+                self.lg.error(e)
+
+    def click_next(self):
+        n=self.gx.get_xml_data("tb_product","product_next_link")
+        self.driver.click(n)
+
+    def is_next_click(self):
+        n = self.gx.get_xml_data("tb_product", "product_next_link")
+        attr=self.driver.get_attribute(n,"class")
+        if attr=="rate-page-next":
+            return  False
+        else:
+            return  True
 
 
 gf=GetRank()
 try:
-    gf.click_ljpj()
-    gf.get_pl()
+    while (1):
+        gf.click_ljpj()
+        gf.get_pl()
+        gf.get_color()
+        gf.click_next()
+        flag=gf.is_next_click()
+        if flag:
+            pass
+        else:
+            break
 
 except Ellipsis as e:
     gf.lg.error("执行错误！")
