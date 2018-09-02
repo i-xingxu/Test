@@ -1,7 +1,8 @@
 #coding=utf-8
 
+import time
 from base import webbase
-from common import conf,logoutput,getxml
+from common import conf,logoutput,getxml,mysql
 class GetRank():
     def __init__(self):
         setup=webbase.SetUp()
@@ -11,6 +12,9 @@ class GetRank():
         self.driver.get_url(self.cf.get_conf_data("taobao")["url"])
         self.lg=logoutput.Logger()
         self.gx=getxml.XmlOperation()
+        self.db=mysql.Mysql()
+        self.db.connect_mysql()
+        self.cur=self.db.cur
 
     def click_ljpj(self):
         self.driver.scroll_page()
@@ -21,13 +25,20 @@ class GetRank():
     def close_driver(self):
         self.driver.driver.quit()
 
-    def get_pl(self):
+    def get_pl(self,tName):
         pl=self.gx.get_xml_data("tb_product","product_pl_text")
         plText=self.driver.get_elements(pl)
         for p in plText:
-            self.lg.info(p.text)
+            try:
+                sql='''insert into {t} (pinglun) values(\"{pl}\") '''.format(t=tName,pl=str(p.text))
+                self.cur.execute(sql)
+                self.db.db.commit()
+                self.lg.info(p.text)
+            except Exception as e:
+                self.lg.error(e)
+                continue
 
-    def get_color(self):
+    def get_color(self,tNanem):
         c=self.gx.get_xml_data("tb_product","product_color_text")
         colorText=self.driver.get_elements(c)
         for p in colorText:
@@ -36,38 +47,59 @@ class GetRank():
                 data=data.split("\n")
                 color=data[0].split("：")[-1]
                 jinghanliang=data[-1].split("：")[-1]
+                sql='''insert into {t} (daxiao,yanse)values (\"{yanse}\",\"{daxiao}\")'''.format(t=tNanem,yanse=color,daxiao=jinghanliang,)
+                self.cur.execute(sql)
+                self.db.db.commit()
                 self.lg.info(color)
                 self.lg.info(jinghanliang)
             except Exception as  e:
                 self.lg.error(e)
+                continue
 
     def click_next(self):
         n=self.gx.get_xml_data("tb_product","product_next_link")
         self.driver.click(n)
 
     def is_next_click(self):
-        n = self.gx.get_xml_data("tb_product", "product_next_link")
-        attr=self.driver.get_attribute(n,"class")
-        if attr=="rate-page-next":
-            return  False
+        n = self.gx.get_xml_data("tb_product", "product_next_isnotclick")
+        f=self.driver.is_exist(n)
+        if f:
+            return False
         else:
-            return  True
+            return True
 
+    def create_table(self):
+        stime=str(int(time.time()))
+        sql_1="""create table taobao_pl{nowtime} (id int(5) NOT NULL auto_increment,pinglun varchar(500),PRIMARY KEY (`id`))""".format(nowtime=stime)
+        sql_2='''create table taobao_color{nowtime} (id int(5) NOT NULL auto_increment,daxiao varchar(20),yanse varchar (20),PRIMARY KEY (`id`))'''.format(nowtime=stime)
+
+        self.cur.execute(sql_1)
+        self.cur.execute(sql_2)
+        tableName={}
+        tableName["taobao_pl"]="taobao_pl"+stime
+        tableName["taobao_color"]="taobao_color"+stime
+        return tableName
 
 gf=GetRank()
 try:
+    gf.click_ljpj()
+    name = gf.create_table()
+    i=1
     while (1):
-        gf.click_ljpj()
-        gf.get_pl()
-        gf.get_color()
-        gf.click_next()
-        flag=gf.is_next_click()
+        gf.get_pl(name["taobao_pl"])
+        gf.get_color(name["taobao_color"])
+        flag = gf.is_next_click()
         if flag:
             pass
         else:
             break
+        gf.click_next()
+        gf.lg.info("第{i}页".format(i=i))
+        i+=1
 
-except Ellipsis as e:
-    gf.lg.error("执行错误！")
+
+except Exception as e:
+    gf.lg.error(e)
 finally:
     gf.close_driver()
+    gf.db.close_connect()

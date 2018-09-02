@@ -5,5 +5,6 @@
          <product_pl_text type="class name" value="tm-rate-fulltxt" desc="评论"></product_pl_text>
          <product_color_text type="class name" value="rate-sku" desc="净含量，颜色"></product_color_text>
          <product_next_link type="link text" value="下一页>>" desc="下一页"></product_next_link>
+         <product_next_isnotclick type="class name" value="rate-page-next" desc="不可点击的下一页"></product_next_isnotclick>
      </tb_product>
 </page>
