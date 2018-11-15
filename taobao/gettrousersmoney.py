@@ -44,6 +44,10 @@ class Trousers():
             self.insert_table(biaoti,price,pic_src,store_url)
 
     def insert_table(self,biaoti,price,pic_src,store_url):
+        if biaoti.find("\'")==-1:
+            pass
+        else:
+            biaoti=biaoti.replace("\'"," ")
         self.lg.info(biaoti)
         self.lg.info(price)
         self.lg.info(pic_src)
@@ -58,12 +62,13 @@ class Trousers():
         self.driver.click(n)
 
     def is_next_click(self):
-        n = self.gx.get_xml_data("trousers", "next_btn_isnoclick")
+        # n = self.gx.get_xml_data("trousers", "next_btn_isnoclick")
+        n = self.gx.get_xml_data("trousers", "next_btn")
         f=self.driver.is_exist(n)
         if f:
-            return False
-        else:
             return True
+        else:
+            return False
 
     def close_driver(self):
         self.driver.driver.quit()
@@ -77,6 +82,12 @@ class Trousers():
         b=self.gx.get_xml_data("trousers","index_search")
         self.driver.send_keys(i,"男裤 抽绳")
         self.driver.click(b)
+
+    def insert_tablelist(self):
+        sql = "insert into product_table_list(product_table_name) values (\'{tablename}\');".format(
+            tablename=self.tableName)
+        self.cur.execute(sql)
+        self.db.db.commit()
 
 
 
@@ -96,6 +107,8 @@ if __name__=="__main__":
                 break
 
             trousers.click_next()
+
+        trousers.insert_tablelist()
     except Exception as e:
         trousers.lg.error(e)
     finally:
