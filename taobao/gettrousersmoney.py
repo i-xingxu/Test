@@ -91,7 +91,7 @@ class Trousers():
         self.driver.click(b)
 
     def insert_tablelist(self):
-        sql = "insert into product_table_list(product_table_name,product) values (\'{tablename}\',\'{product\');".format(
+        sql = "insert into product_table_list(product_table_name,product) values (\'{tablename}\',\'{product}\');".format(
             tablename=self.tableName,product=self.selectData)
         self.cur.execute(sql)
         self.db.db.commit()
