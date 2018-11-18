@@ -88,6 +88,13 @@ class Trousers():
             tablename=self.tableName)
         self.cur.execute(sql)
         self.db.db.commit()
+    # 访问验证是否存在
+    def fwyz_isexist(self):
+
+        e=self.gx.get_xml_data("trousers","product_fxyz")
+        flag=self.driver.is_exist(e,2)
+        return flag
+
 
 
 
@@ -95,18 +102,24 @@ if __name__=="__main__":
     trousers=Trousers()
     trousers.create_tables()
     trousers.enter_taobao()
+    page=1
 
     try:
         while (1):
             trousers.get_data()
+            trousers.lg.info("已获取{p}页数据".format(p=page))
+            page+=1
             flag=trousers.is_next_click()
-
             if flag:
                 pass
             else:
                 break
-
             trousers.click_next()
+            f = trousers.fwyz_isexist()
+            if f:
+                break
+            else:
+                pass
 
         trousers.insert_tablelist()
     except Exception as e:

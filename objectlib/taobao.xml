@@ -16,5 +16,6 @@
         <next_btn_isnoclick type="class name" value="icon icon-btn-next-2-disable" desc="不可点击的下一页"></next_btn_isnoclick>
         <index_input type="id" value="q" desc="淘宝首页输入框"></index_input>
         <index_search type="xpath" value="//button[@class='btn-search tb-bg']" desc="搜索按钮"></index_search>
+        <product_fxyz type="xpath" value="//div[contains(text(),'访问验证')]" desc="访问验证弹窗"></product_fxyz>
     </trousers>
 </page>
