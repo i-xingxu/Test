@@ -82,15 +82,16 @@ class Trousers():
     def scroll_page(self):
         self.driver.scroll_page()
 
-    def enter_taobao(self):
+    def enter_taobao(self,selectData):
+        self.selectData=selectData
         i=self.gx.get_xml_data("trousers","index_input")
         b=self.gx.get_xml_data("trousers","index_search")
-        self.driver.send_keys(i,"男裤 抽绳")
+        self.driver.send_keys(i,selectData)
         self.driver.click(b)
 
     def insert_tablelist(self):
-        sql = "insert into product_table_list(product_table_name) values (\'{tablename}\');".format(
-            tablename=self.tableName)
+        sql = "insert into product_table_list(product_table_name,product) values (\'{tablename}\',\'{product\');".format(
+            tablename=self.tableName,product=self.selectData)
         self.cur.execute(sql)
         self.db.db.commit()
     # 访问验证是否存在
@@ -106,7 +107,11 @@ class Trousers():
 if __name__=="__main__":
     trousers=Trousers()
     trousers.create_tables()
-    trousers.enter_taobao()
+    if len(sys.argv)==1:
+        trousers.enter_taobao(sys.argv)
+    else:
+        trousers.enter_taobao("显示器")
+
     page=1
 
     try:
