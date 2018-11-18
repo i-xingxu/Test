@@ -22,6 +22,7 @@ class Trousers():
         self.db = mysql.Mysql()
         self.db.connect_mysql()
         self.cur = self.db.cur
+        self.selectData="Product"
 
     def create_tables(self):
         '''
@@ -107,8 +108,8 @@ class Trousers():
 if __name__=="__main__":
     trousers=Trousers()
     trousers.create_tables()
-    if len(sys.argv)==1:
-        trousers.enter_taobao(sys.argv)
+    if len(sys.argv)==2:
+        trousers.enter_taobao(sys.argv[1])
     else:
         trousers.enter_taobao("显示器")
 
