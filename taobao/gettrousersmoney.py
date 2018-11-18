@@ -1,5 +1,10 @@
 #coding=utf-8
 
+#导入路径
+import os
+import sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 import time
 from base import webbase
 from common import conf,logoutput,getxml,mysql
