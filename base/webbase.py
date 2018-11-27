@@ -62,6 +62,9 @@ class SetUp():
                 if f=="1":
                     self.lg.info("显示Chrome浏览器界面")
                 elif f=="0":
+                    # 设置浏览器不加载图片
+                    prefs = {"profile.managed_default_content_settings.images": 2}
+                    option.add_experimental_option("prefs", prefs)
                     option.add_argument('--headless')
                     option.add_argument('--no-sandbox')
                     option.add_argument('--disable-dev-shm-usage')
