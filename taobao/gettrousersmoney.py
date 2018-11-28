@@ -91,8 +91,9 @@ class Trousers():
         self.driver.click(b)
 
     def insert_tablelist(self):
-        sql = "insert into product_table_list(product_table_name,product) values (\'{tablename}\',\'{product}\');".format(
-            tablename=self.tableName,product=self.selectData)
+        t=time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+        sql = "insert into product_table_list(product_table_name,product,run_time) values (\'{tablename}\',\'{product}\',\'{runtime}\');".format(
+            tablename=self.tableName,product=self.selectData,runtime=t)
         self.cur.execute(sql)
         self.db.db.commit()
     # 访问验证是否存在
