@@ -246,7 +246,8 @@ class Web():
 
         try:
             self.lg.info("滚动页面")
-            js="var q=document.documentElement.scrollTpo=1000"
+            # js="var q=document.documentElement.scrollTpo=1000"
+            js = " window.scrollTo(0,document.body.scrollHeight)"
             self.driver.execute_script(js)
         except Ellipsis as e:
             self.lg.error("滚动页面失败")
