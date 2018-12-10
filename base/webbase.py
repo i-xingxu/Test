@@ -238,19 +238,30 @@ class Web():
         except Ellipsis as e:
             self.lg.error("未获取到：“{}”的属性值".format(elementinfo["desc"]))
 
-    def scroll_page(self):
+    def scroll_page(self,pagesize="bottom"):
         '''
         滚动页面
+        默认滚动到最底部，可以填写滚动距离数字
         :return:
         '''
+        if pagesize=="bottom":
 
-        try:
-            self.lg.info("滚动页面")
-            # js="var q=document.documentElement.scrollTpo=1000"
-            js = " window.scrollTo(0,document.body.scrollHeight)"
-            self.driver.execute_script(js)
-        except Ellipsis as e:
-            self.lg.error("滚动页面失败")
+            try:
+                self.lg.info("滚动页面")
+                # js="var q=document.documentElement.scrollTpo=1000"
+                js = " window.scrollTo(0,document.body.scrollHeight)"
+                self.driver.execute_script(js)
+            except Ellipsis as e:
+                self.lg.error("滚动页面失败")
+        else:
+            try:
+                self.lg.info("滚动页面")
+                js="var q=document.documentElement.scrollTpo="+str(pagesize)
+                # js = " window.scrollTo(0,document.body.scrollHeight)"
+                self.driver.execute_script(js)
+            except Ellipsis as e:
+                self.lg.error("滚动页面失败")
+
 
     def get_page_source(self):
         '''
