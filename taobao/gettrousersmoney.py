@@ -81,7 +81,7 @@ class Trousers():
         self.db.close_connect()
 
     def scroll_page(self):
-        self.driver.scroll_page()
+        self.driver.scroll_page(pagesize="1000")
 
     def enter_taobao(self,selectData):
         self.selectData=selectData
