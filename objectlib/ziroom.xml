@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page>
+    <room_list_page>
+        <pic_url_link type="xpath"  value="//li[@class='clearfix']/div[@class='img pr']/a/img" desc="列表中图片url"></pic_url_link>
+        <room_info_text type="xpath" value="//li[@class='clearfix']/div[@class='txt']/div[@class='detail']/p[1]" desc="房屋信息"></room_info_text>
+        <place_text type="xpath" value="//li[@class='clearfix']/div[@class='txt']/div[@class='detail']/p[2]/span" desc="交通位置"></place_text>
+        <price_text type="class name" value="price" desc="价格"></price_text>
+        <room_page_url type="css selector" value="p.more>a" desc="查看更多"></room_page_url>
+    </room_list_page>
+
+</page>
