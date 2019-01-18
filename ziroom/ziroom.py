@@ -10,7 +10,6 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import time
 import requests
 import re
-import ssl
 # 暂时使用baidu-aip 用来数字识别
 # import pytesseract
 from PIL import Image
@@ -100,7 +99,6 @@ class Ziroom():
                    "Accept-Language": "en-us",
                    "Connection": "keep-alive",
                    "Accept-Charset": "GB2312,utf-8;q=0.7,*;q=0.7"}
-        ssl._create_default_https_context = ssl._create_unverified_context
         res=requests.get(self.driver.driver.current_url,headers=h)
 
         if res.status_code==200:
