@@ -10,7 +10,8 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import time
 import requests
 import re
-import pytesseract
+# 暂时使用baidu-aip 用来数字识别
+# import pytesseract
 from PIL import Image
 import PIL.ImageOps
 from aip import AipOcr
