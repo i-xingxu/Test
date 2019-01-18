@@ -113,8 +113,11 @@ class Ziroom():
         os.chdir(self.cf.get_conf_data(SCR_CONF)['path'])
         # print("http://static8.ziroom.com"+priceInfo["image"][1:])
         r=requests.get("https:"+priceInfo["image"])
-        with open("price.png","wb") as code:
-            code.write(r.content)
+        if r.status_code==200:
+            with open("price.png","wb") as code:
+                code.write(r.content)
+        else:
+            self.get_price()
         tmpImage = Image.open("price.png").convert('L')
         tmpNewImage = PIL.ImageOps.invert(tmpImage)
         tmpNewImage.save('new_price.png')
