@@ -139,6 +139,7 @@ class Ziroom():
                 for p in pr:
                     tmpPrice+=str(numberList[int(p)])
                 priceList.append(tmpPrice)
+            self.lg.info(priceList)
             return priceList
         # newVcode=Image.open("new_price.png").convert('L')
         # vcode = pytesseract.image_to_string(newVcode,config='--psm 7')
