@@ -87,7 +87,9 @@ class Ziroom():
             tmpUrlLst.append(m.get_attribute("href"))
 
         tmpDf["租房页面url"]=tmpUrlLst
-        tmpDf["价格"]=self.get_price()
+        priceList=self.get_price()
+        self.lg.info(priceList)
+        tmpDf["价格"]=priceList
         self.lg.info(tmpDf["价格"])
         self.data=self.data.append(tmpDf,ignore_index=True,verify_integrity=False)
 
@@ -139,7 +141,6 @@ class Ziroom():
                 for p in pr:
                     tmpPrice+=str(numberList[int(p)])
                 priceList.append(tmpPrice)
-            self.lg.info(priceList)
             os.remove("new_price.png")
             os.remove("price.png")
             return priceList
