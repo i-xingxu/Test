@@ -6,6 +6,7 @@
         <place_text type="xpath" value="//li[@class='clearfix']/div[@class='txt']/div[@class='detail']/p[2]/span" desc="交通位置"></place_text>
         <price_text type="class name" value="price" desc="价格"></price_text>
         <room_page_url type="css selector" value="p.more>a" desc="查看更多"></room_page_url>
+        <next_btn type="css selector" value="div.pages>a.next" desc="下一页按钮"></next_btn>
     </room_list_page>
 
 </page>

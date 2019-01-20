@@ -87,8 +87,8 @@ class Ziroom():
             tmpUrlLst.append(m.get_attribute("href"))
 
         tmpDf["租房页面url"]=tmpUrlLst
-
         tmpDf["价格"]=self.get_price()
+        self.lg.info(tmpDf["价格"])
         self.data=self.data.append(tmpDf,ignore_index=True,verify_integrity=False)
 
     def get_price(self):
@@ -149,6 +149,30 @@ class Ziroom():
 
 
 
+
+    def next_is_click(self):
+        nextElement=self.gx.get_xml_data("room_list_page","next_btn")
+        flag=self.driver.is_exist(nextElement)
+        return flag
+
+
+    def click_next(self):
+
+        nextElement=self.gx.get_xml_data("room_list_page","next_btn")
+        self.driver.click(nextElement)
+
+
+    def run_get_data(self):
+        self.get_data()
+        while(self.next_is_click()):
+            self.click_next()
+            self.get_data()
+
+
+
+
+
+
     def insert_db(self):
         self.db.connect_mysql()
 
@@ -198,11 +222,13 @@ class Ziroom():
         self.driver.driver.close()
 
 
-z=Ziroom()
-try:
-    z.get_data()
-    z.insert_db()
-finally:
-    z.clsoe_driver()
+
+if __name__=="__main__":
+    z=Ziroom()
+    try:
+        z.run_get_data()
+        z.insert_db()
+    finally:
+        z.clsoe_driver()
 
 
