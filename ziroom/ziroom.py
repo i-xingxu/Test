@@ -140,13 +140,13 @@ class Ziroom():
                     tmpPrice+=str(numberList[int(p)])
                 priceList.append(tmpPrice)
             self.lg.info(priceList)
+            os.remove("new_price.png")
+            os.remove("price.png")
             return priceList
         # newVcode=Image.open("new_price.png").convert('L')
         # vcode = pytesseract.image_to_string(newVcode,config='--psm 7')
         # print("识别文字为："+vcode)
 
-        os.remove("new_price.png")
-        os.remove("price.png")
 
 
     def insert_db(self):
