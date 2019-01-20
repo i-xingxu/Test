@@ -141,6 +141,7 @@ class Ziroom():
                 for p in pr:
                     tmpPrice+=str(numberList[int(p)])
                 priceList.append(tmpPrice)
+            self.lg.info(priceList)
             os.remove("new_price.png")
             os.remove("price.png")
             return priceList
