@@ -106,8 +106,8 @@ class Ziroom():
         if res.status_code==200:
             pageInfo=res.text
         else:
-            pageInfo = ""
-            self.get_price()
+            # pageInfo = ""
+            return self.get_price()
         pattern=re.compile(r"{\"image\".*?};")
         result=re.findall(pattern,pageInfo)[0].replace(";","")
         priceInfo=json.loads(result)
@@ -119,7 +119,7 @@ class Ziroom():
             with open("price.png","wb") as code:
                 code.write(r.content)
         else:
-            self.get_price()
+            return self.get_price()
         tmpImage = Image.open("price.png").convert('L')
         tmpNewImage = PIL.ImageOps.invert(tmpImage)
         tmpNewImage.save('new_price.png')
@@ -132,18 +132,19 @@ class Ziroom():
         priceNum=client.numbers(image)
         numberList=str(priceNum["words_result"][0]["words"])
         if len(numberList)!=10:
-            self.get_price()
+            return self.get_price()
         else:
-            priceList=[]
+            priceList = []
             priceListIndex=priceInfo["offset"]
             for pr in priceListIndex:
                 tmpPrice=""
                 for p in pr:
                     tmpPrice+=str(numberList[int(p)])
                 priceList.append(tmpPrice)
-            self.lg.info(priceList)
             os.remove("new_price.png")
             os.remove("price.png")
+            # self.lg.info("获取的价格为")
+            # self.lg.info(priceList)
             return priceList
         # newVcode=Image.open("new_price.png").convert('L')
         # vcode = pytesseract.image_to_string(newVcode,config='--psm 7')
