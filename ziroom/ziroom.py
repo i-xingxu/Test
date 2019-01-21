@@ -88,9 +88,9 @@ class Ziroom():
 
         tmpDf["租房页面url"]=tmpUrlLst
         priceList=self.get_price()
-        self.lg.info(priceList)
+        # self.lg.info(priceList)
         tmpDf["价格"]=priceList
-        self.lg.info(tmpDf["价格"])
+        # self.lg.info(tmpDf["价格"])
         self.data=self.data.append(tmpDf,ignore_index=True,verify_integrity=False)
 
     def get_price(self):
