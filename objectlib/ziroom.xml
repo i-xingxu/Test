@@ -7,6 +7,7 @@
         <price_text type="class name" value="price" desc="价格"></price_text>
         <room_page_url type="css selector" value="p.more>a" desc="查看更多"></room_page_url>
         <next_btn type="css selector" value="div.pages>a.next" desc="下一页按钮"></next_btn>
+        <price_way type="css selector" value="p.price>span.gray-6" desc="收费方式"></price_way>
     </room_list_page>
 
 </page>

@@ -41,7 +41,7 @@ class Ziroom():
         self.driver.scroll_page()
         lst=self.driver.get_elements(picUrl,waittime=3)
         # 获取图片地址和小区名称
-        tmpDf=pd.DataFrame(columns=["图片地址","平米数","楼层","房屋格局","交通位置","价格","小区名称","租房页面url"])
+        tmpDf=pd.DataFrame(columns=["图片地址","平米数","楼层","房屋格局","交通位置","价格","小区名称","租房页面url","收费方式"])
         tmpLstPic=[]
         tmpLstName=[]
         for l in lst:
@@ -91,7 +91,20 @@ class Ziroom():
         # self.lg.info(priceList)
         tmpDf["价格"]=priceList
         # self.lg.info(tmpDf["价格"])
-        self.data=self.data.append(tmpDf,ignore_index=True,verify_integrity=False)
+
+        # 收费方式
+        priceWayElement=self.gx.get_xml_data("room_list_page","price_way")
+        priceWayElements=self.driver.get_elements(priceWayElement)
+        tmpPriceWayList=[]
+        for p in priceWayElements:
+            tmpPriceWayList.append(p.text)
+        # print(tmpPriceWayList)
+        tmpDf["收费方式"]=tmpPriceWayList
+
+
+        self.data = self.data.append(tmpDf, ignore_index=True, verify_integrity=False)
+
+
 
     def get_price(self):
         # 获取价格
@@ -199,8 +212,8 @@ class Ziroom():
 
             for index,d in self.data.iterrows():
                 sql='''
-                insert into room_info (pic_src,room_size,floor,room_pattern,place,price,community,page_url,g_id) values (\"{ps}\",\"{rs}\",\"{f}\",\"{rp}\",\"{p}\",\"{pri}\",\"{com}\",\"{pu}\",{g});
-                '''.format(ps=d["图片地址"],rs=d["平米数"],f=d["楼层"],rp=d["房屋格局"],p=d["交通位置"],pri=d["价格"],com=d["小区名称"],pu=d["租房页面url"],g=gID)
+                insert into room_info (pic_src,room_size,floor,room_pattern,place,price,community,page_url,g_id,price_way) values (\"{ps}\",\"{rs}\",\"{f}\",\"{rp}\",\"{p}\",\"{pri}\",\"{com}\",\"{pu}\",{g},\"{pw}\");
+                '''.format(ps=d["图片地址"],rs=d["平米数"],f=d["楼层"],rp=d["房屋格局"],p=d["交通位置"],pri=d["价格"],com=d["小区名称"],pu=d["租房页面url"],g=gID,pw=d["收费方式"])
                 self.db.cur.execute(sql)
                 self.lg.info(sql)
 
