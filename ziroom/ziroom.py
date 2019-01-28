@@ -100,9 +100,7 @@ class Ziroom():
             tmpPriceWayList.append(p.text)
         # print(tmpPriceWayList)
         tmpDf["收费方式"]=tmpPriceWayList
-
-
-        self.data = self.data.append(tmpDf, ignore_index=True, verify_integrity=False)
+        self.data = self.data.append(tmpDf, ignore_index=True, verify_integrity=False,sort=False)
 
 
 
