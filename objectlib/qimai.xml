@@ -8,6 +8,10 @@
         <web_page>
             <web_keywordlist_keyword type="css selector" value="div.keyword-list" desc="关键词列表"></web_keywordlist_keyword>
             <web_keywordlist_nextbtn type="class name" value="ivu-page-next" desc="下一页按钮"></web_keywordlist_nextbtn>
+            <web_appasm_tr type="class name" value="ivu-table-row" desc="app详情页asm列表"></web_appasm_tr>
         </web_page>
+        <android_rank_page>
+            <rank_table type="xpath" value="//table[@class='data-table']/tbody/tr" desc="安卓榜单页表格"></rank_table>
+        </android_rank_page>
 
 </page>
