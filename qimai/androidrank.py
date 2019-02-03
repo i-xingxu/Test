@@ -19,7 +19,7 @@ class GetAndroidRank():
 
     def get_table_count(self):
         rankTableElement=self.getxml.get_xml_data("android_rank_page","rank_table")
-        rankTable=self.driver.get_elements(rankTableElement)
+        rankTable=self.driver.get_elements(rankTableElement,waittime=3)
         # for r in rankTable: print(r.text)
         return len(rankTable)
 
