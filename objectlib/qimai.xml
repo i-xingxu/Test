@@ -12,6 +12,7 @@
         </web_page>
         <android_rank_page>
             <rank_table type="xpath" value="//table[@class='data-table']/tbody/tr" desc="安卓榜单页表格"></rank_table>
+            <rank_tittle type="css selector" value="div.full-title" desc="榜单标题"></rank_tittle>
         </android_rank_page>
 
 </page>
