@@ -13,7 +13,7 @@ class TestAndroidRandk():
         pass
 
 
-    @pytest.allure.feature()
+    @pytest.allure.feature("安卓榜单")
     @pytest.allure.severity(pytest.allure.severity_level.CRITICAL)
     @pytest.mark.parametrize("url,expect", testCase)
     def test_android_rank(self,url,expect):
