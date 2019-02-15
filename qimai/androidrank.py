@@ -26,8 +26,8 @@ class GetAndroidRank():
         # for r in rankTable: print(r.text)
         if len(rankTable)<=1:
             self.driver.get_screenshot()
-        else:
-            return len(rankTable)
+
+        return len(rankTable)
 
 
 
