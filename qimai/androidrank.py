@@ -24,7 +24,10 @@ class GetAndroidRank():
         rankTittle=self.driver.get_text(rankTittleElement)
         self.lg.info(rankTittle)
         # for r in rankTable: print(r.text)
-        return len(rankTable)
+        if len(rankTable)<=1:
+            self.driver.get_screenshot()
+        else:
+            return len(rankTable)
 
 
 
