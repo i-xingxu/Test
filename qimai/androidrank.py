@@ -16,6 +16,7 @@ class GetAndroidRank():
     def open_url(self,url):
 
         self.driver.get_url(url)
+        self.driver.driver.maximize_window()
 
     def get_table_count(self):
         rankTableElement=self.getxml.get_xml_data("android_rank_page","rank_table")
