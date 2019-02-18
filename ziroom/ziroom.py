@@ -210,8 +210,8 @@ class Ziroom():
 
             for index,d in self.data.iterrows():
                 sql='''
-                insert into room_info (pic_src,room_size,floor,room_pattern,place,price,community,page_url,g_id,price_way,rent_way,source) values (\"{ps}\",\"{rs}\",\"{f}\",\"{rp}\",\"{p}\",\"{pri}\",\"{com}\",\"{pu}\",{g},\"{pw}\",\"{rw}\",\"{so}\");
-                '''.format(ps=d["图片地址"],rs=d["平米数"],f=d["楼层"],rp=d["房屋格局"],p=d["交通位置"],pri=d["价格"],com=d["小区名称"],pu=d["租房页面url"],g=gID,pw=d["收费方式"],rw="合租",so="自如网")
+                insert into room_info (pic_src,room_size,floor,room_pattern,place,price,community,page_url,g_id,price_way,rent_way,source,region) values (\"{ps}\",\"{rs}\",\"{f}\",\"{rp}\",\"{p}\",\"{pri}\",\"{com}\",\"{pu}\",{g},\"{pw}\",\"{rw}\",\"{so}\",\"{re}\");
+                '''.format(ps=d["图片地址"],rs=d["平米数"],f=d["楼层"],rp=d["房屋格局"],p=d["交通位置"],pri=d["价格"],com=d["小区名称"],pu=d["租房页面url"],g=gID,pw=d["收费方式"],rw="合租",so="自如网",re="四季青")
                 self.db.cur.execute(sql)
                 self.lg.info(sql)
 
