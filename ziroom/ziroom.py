@@ -1,7 +1,5 @@
 #coding=utf-8
 
-#coding=utf-8
-
 #导入路径
 import os
 import sys
