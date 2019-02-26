@@ -191,8 +191,8 @@ class Ziroom():
         runTime=time.strftime("%Y-%m-%d", time.localtime())
 
         _sql='''
-        insert into get_data_number_of_times (run_date) values (\"{rd}\")
-        '''.format(rd=runTime)
+        insert into get_data_number_of_times (run_date,ex_1) values (\"{rd}\",\"{ex_1}\")
+        '''.format(rd=runTime,ex_1="自如网")
         self.db.cur.execute(_sql)
         gID=int(self.db.cur.lastrowid)
         # self.db.sql_commit()
