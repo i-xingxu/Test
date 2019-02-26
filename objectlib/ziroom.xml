@@ -9,5 +9,14 @@
         <next_btn type="css selector" value="div.pages>a.next" desc="下一页按钮"></next_btn>
         <price_way type="css selector" value="p.price>span.gray-6" desc="收费方式"></price_way>
     </room_list_page>
+    <lianjia_list_page>
+        <img_url type="css selector" value="div.content__list--item>a.content__list--item--aside>img" desc="图片url"></img_url>
+        <page_url type="css selector" value="div.content__list--item>a.content__list--item--aside" desc="页面url"></page_url>
+        <price_list type="class name" value="content__list--item-price" desc="价格"></price_list>
+        <pattern_list_text type="class name" value="content__list--item--des" desc="房屋格局等信息"></pattern_list_text>
+        <pagenumber_list type="class name" value="content__pg" desc="页码列表"></pagenumber_list>
+        <next_link type="class name" value="next" desc="下一页按钮"></next_link>
+        <pagenumber_url_list type="css selector" value="div.content__pg>a" desc="页码列表"></pagenumber_url_list>
+    </lianjia_list_page>
 
 </page>

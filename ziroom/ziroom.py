@@ -31,7 +31,7 @@ class Ziroom():
         self.db = mysql.Mysql()
         self.db.connect_mysql()
         self.cur = self.db.cur
-        self.data=pd.DataFrame(columns=["图片地址","平米数","楼层","房屋格局","交通位置","价格","小区名称","租房页面url"])
+        self.data=pd.DataFrame(columns=["图片地址","平米数","楼层","房屋格局","交通位置","价格","小区名称","租房页面url","收费方式"])
 
     def get_data(self):
 
