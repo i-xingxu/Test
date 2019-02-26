@@ -168,14 +168,14 @@ class Lianjia():
         runTime=time.strftime("%Y-%m-%d", time.localtime())
 
         _sql='''
-        insert into get_data_number_of_times_test (run_date) values (\"{rd}\")
+        insert into get_data_number_of_times (run_date) values (\"{rd}\")
         '''.format(rd=runTime)
         self.db.cur.execute(_sql)
         gID=int(self.db.cur.lastrowid)
         try:
             for index,d in self.data.iterrows():
                 sql='''
-                insert into room_info_test (pic_src,room_size,floor,room_pattern,place,price,community,page_url,g_id,price_way,rent_way,source,region) values (\"{ps}\",\"{rs}\",\"{f}\",\"{rp}\",\"{p}\",\"{pri}\",\"{com}\",\"{pu}\",{g},\"{pw}\",\"{rw}\",\"{so}\",\"{re}\");
+                insert into room_info (pic_src,room_size,floor,room_pattern,place,price,community,page_url,g_id,price_way,rent_way,source,region) values (\"{ps}\",\"{rs}\",\"{f}\",\"{rp}\",\"{p}\",\"{pri}\",\"{com}\",\"{pu}\",{g},\"{pw}\",\"{rw}\",\"{so}\",\"{re}\");
                 '''.format(ps=d["图片地址"],rs=d["平米数"],f=d["楼层"],rp=d["房屋格局"],p=d["交通位置"],pri=d["价格"],com=d["小区名称"],pu=d["租房页面url"],g=gID,pw=d["收费方式"],rw=d["租房类型"],so="链家",re="四季青")
                 self.db.cur.execute(sql)
                 self.lg.info(sql)
