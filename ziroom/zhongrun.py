@@ -46,7 +46,7 @@ class ZhongRun():
         # 图片地址
         tmpPicUrlList=[]
         picUrlElements=self.gx.get_xml_data("zhongrun_list_page","img_url_list")
-        picUrlList=self.driver.get_elements(picUrlElements)
+        picUrlList=self.driver.get_elements(picUrlElements,waittime=2)
         for p in picUrlList:
             tmpPicUrlList.append(p.get_attribute("src"))
         tmpDf["图片地址"]=tmpPicUrlList
