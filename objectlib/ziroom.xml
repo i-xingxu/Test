@@ -18,5 +18,13 @@
         <next_link type="class name" value="next" desc="下一页按钮"></next_link>
         <pagenumber_url_list type="css selector" value="div.content__pg>a" desc="页码列表"></pagenumber_url_list>
     </lianjia_list_page>
+    <zhongrun_list_page>
+        <area_link type="css selector" value="p#quyu>a[quyuaid='14']" desc="海淀"></area_link>
+        <place_link type="css selector" value="p#shangquan>a[quyubid='115']" desc="四季青"></place_link>
+        <img_url_list type="css selector" value="div.imgbox>img" desc="房屋图片"></img_url_list>
+        <page_url_list type="css selector" value="ul.list>li>a" desc="租房页面"></page_url_list>
+        <rent_test type="class name" value="xiangQing" desc="租房方式"></rent_test>
+        <next_link type="css selector" value="div#map_list_ul_page>div>a.layui-laypage-next" desc="下一页"></next_link>
+    </zhongrun_list_page>
 
 </page>
