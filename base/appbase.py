@@ -79,18 +79,39 @@ class App():
         :param elementinfo:
         :param waittime:
         :return:
+        type:
+            ID = "id"
+            XPATH = "xpath"
+            LINK_TEXT = "link text"
+            PARTIAL_LINK_TEXT = "partial link text"
+            NAME = "name"
+            TAG_NAME = "tag name"
+            CLASS_NAME = "class name"
+            CSS_SELECTOR = "css selector"
         '''
         time.sleep(waittime)
-        try:
-            element = self.driver.find_element(elementinfo["type"], elementinfo["value"])
-            if element == None:
-                self.lg.info("定位元素失败:%s" % elementinfo["desc"])
-                self.driver.quit()
-            else:
-                return element
-        except Exception as e:
-            self.lg.error(e)
-            self.lg.error("未定位到元素:%s" % elementinfo["desc"])
+        if elementinfo["type"]=="uiautomator":
+            element = self.driver.find_element_by_android_uiautomator(elementinfo["value"])
+            try:
+                if element == None:
+                    self.lg.info("定位元素失败:%s" % elementinfo["desc"])
+                    self.driver.quit()
+                else:
+                    return element
+            except Exception as e:
+                self.lg.error(e)
+                self.lg.error("未定位到元素:%s" % elementinfo["desc"])
+        else:
+            try:
+                element = self.driver.find_element(elementinfo["type"], elementinfo["value"])
+                if element == None:
+                    self.lg.info("定位元素失败:%s" % elementinfo["desc"])
+                    self.driver.quit()
+                else:
+                    return element
+            except Exception as e:
+                self.lg.error(e)
+                self.lg.error("未定位到元素:%s" % elementinfo["desc"])
 
     def wait_element(self, elementinfo, waittime=8):
         '''
@@ -108,13 +129,13 @@ class App():
             self.lg.error(e)
             self.lg.error("元素未出现：%s" % elementinfo["desc"])
 
-    def click(self, elementinfo):
+    def click(self, elementinfo,waittime=1):
         '''
         点击操作
         :param elementinfo:
         :return:
         '''
-        e = self.get_element(elementinfo)
+        e = self.get_element(elementinfo,waittime)
         try:
             e.click()
             self.lg.info("点击：%s" % elementinfo["desc"])
@@ -150,7 +171,7 @@ class App():
         '''
         try:
             t = tool.Time()
-            picNam = t.get_now_time() + ".jpg"
+            picNam = t.get_now_time() + ".png"
             self.lg.info("保存图片：%s" % picNam)
             os.chdir(self.SCR_PATH)
             self.driver.save_screenshot(picNam)
