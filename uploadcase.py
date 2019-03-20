@@ -1,6 +1,7 @@
 # ucoding=utf-8
 import xlrd
 import os
+import sys
 
 os.chdir(os.path.split(os.path.realpath(__file__))[0])
 from common import mysql
@@ -222,9 +223,25 @@ class UI():
             self.delete_ui()
 
     def open_ui(self):
+
         # print()
-        path = input("请输入excel地址，例：D:\excel.xls\n")
-        return path
+        if len(sys.argv)>1:
+            path=sys.argv[1]
+            if os.path.exists(path):
+                return path
+            else:
+                self.lg.error("输入的地址有误：{p}".format(p=path))
+                exit()
+
+        else:
+            path = input("请输入excel地址，例：D:\excel.xls\n输入“exit”退出\n")
+            if os.path.exists(path):
+                return path
+            elif path=="exit":
+                exit()
+            else:
+                sys.argv=[]
+                return self.open_ui()
 
 
 if __name__ == "__main__":
@@ -234,7 +251,7 @@ if __name__ == "__main__":
     up = Upload()
     print("!!!!!!!!!!!!!!注意事项！!!!!!!!!!!!!!!!!")
     print(
-        "1）用例数据中\";\"符号为分隔符，用来分隔用例输入数据，如：用户名1;密码1;\n2）本工具依赖于common包，需与common包在同一级目录下\n3）上传文件格式为.xls或.xlsx文件\n4）插入数据，指的是将excel表中数据插入到数据库中，每一个平台的用例名称唯一，一个用例名称可以对应多组数据\n5）更新用例，指的是将excel表中的用例名称所对应的用例数据删除，并重新导入新的数据\n6）删除数据,输入用例名称和平台对应编码，即可正常删除")
+        "1）用例数据中\";\"符号为分隔符，用来分隔用例输入数据，如：用户名1;密码1;\n2）本工具依赖于common包，需与common包在同一级目录下\n3）上传文件格式为.xls或.xlsx文件\n4）插入数据，指的是将excel表中数据插入到数据库中，每一个平台的用例名称唯一，一个用例名称可以对应多组数据\n5）更新用例，指的是将excel表中的用例名称所对应的用例数据删除，并重新导入新的数据\n6）删除数据,输入用例名称和平台对应编码，即可正常删除\n7）平台名称与对应编码在数据库platform_name表中\n")
     try:
         up.main()
         # ui.start()
