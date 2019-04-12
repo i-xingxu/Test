@@ -183,7 +183,7 @@ class App():
             picNam = t.get_now_time() + ".png"
             self.lg.info("保存图片：%s" % picNam)
             os.chdir(self.SCR_PATH)
-            self.driver.save_screenshot(picNam)
+            self.driver.get_screenshot_as_png(picNam)
             f = open(picNam,'rb').read()
             allure.attach('This is a picture',f,allure.attach_type.PNG)
         except Exception as e:
