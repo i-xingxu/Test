@@ -36,7 +36,8 @@ class SetUp():
                 "deviceName":info["deviceName"],
                 "appPackage":info["appPackage"],
                 "appActivity":info["appActivity"],
-                "automationName":info["automationName"]
+                "automationName":info["automationName"],
+                "chromedriverExecutable": info["chromedriverExecutable"],
 
             }
             self.lg.info("读取机型信息：%s" % desired_caps)
@@ -79,18 +80,39 @@ class App():
         :param elementinfo:
         :param waittime:
         :return:
+        type:
+            ID = "id"
+            XPATH = "xpath"
+            LINK_TEXT = "link text"
+            PARTIAL_LINK_TEXT = "partial link text"
+            NAME = "name"
+            TAG_NAME = "tag name"
+            CLASS_NAME = "class name"
+            CSS_SELECTOR = "css selector"
         '''
         time.sleep(waittime)
-        try:
-            element = self.driver.find_element(elementinfo["type"], elementinfo["value"])
-            if element == None:
-                self.lg.info("定位元素失败:%s" % elementinfo["desc"])
-                self.driver.quit()
-            else:
-                return element
-        except Exception as e:
-            self.lg.error(e)
-            self.lg.error("未定位到元素:%s" % elementinfo["desc"])
+        if elementinfo["type"]=="uiautomator":
+            element = self.driver.find_element_by_android_uiautomator(elementinfo["value"])
+            try:
+                if element == None:
+                    self.lg.info("定位元素失败:%s" % elementinfo["desc"])
+                    # self.driver.quit()
+                else:
+                    return element
+            except Exception as e:
+                self.lg.error(e)
+                self.lg.error("未定位到元素:%s" % elementinfo["desc"])
+        else:
+            try:
+                element = self.driver.find_element(elementinfo["type"], elementinfo["value"])
+                if element == None:
+                    self.lg.info("定位元素失败:%s" % elementinfo["desc"])
+                    # self.driver.quit()
+                else:
+                    return element
+            except Exception as e:
+                self.lg.error(e)
+                self.lg.error("未定位到元素:%s" % elementinfo["desc"])
 
     def wait_element(self, elementinfo, waittime=8):
         '''
@@ -99,22 +121,30 @@ class App():
         :param waittime:
         :return:
         '''
-        self.get_element(elementinfo)
+        # self.get_element(elementinfo)
         try:
-            WebDriverWait(self.driver, waittime).until(
-                lambda x: x.find_element(elementinfo["type"], elementinfo["value"]))
-            self.lg.info("元素出现：%s" % elementinfo["desc"])
+            if elementinfo["type"] == "uiautomator":
+                WebDriverWait(self.driver, waittime).until(
+                    lambda x: x.find_element_by_android_uiautomator(elementinfo["value"]))
+                self.lg.info("元素出现：%s" % elementinfo["desc"])
+                return True
+            else:
+                WebDriverWait(self.driver, waittime).until(
+                    lambda x: x.find_element(elementinfo["type"], elementinfo["value"]))
+                self.lg.info("元素出现：%s" % elementinfo["desc"])
+                return True
         except Exception as e:
             self.lg.error(e)
             self.lg.error("元素未出现：%s" % elementinfo["desc"])
+            return False
 
-    def click(self, elementinfo):
+    def click(self, elementinfo,waittime=1):
         '''
         点击操作
         :param elementinfo:
         :return:
         '''
-        e = self.get_element(elementinfo)
+        e = self.get_element(elementinfo,waittime)
         try:
             e.click()
             self.lg.info("点击：%s" % elementinfo["desc"])
@@ -135,7 +165,7 @@ class App():
             element = self.driver.find_elements(elementinfo["type"], elementinfo["value"])
             if element == None:
                 self.lg.info("定位元素失败:%s" % elementinfo["desc"])
-                self.driver.quit()
+                # self.driver.quit()
             else:
                 return element
         except Exception as e:
@@ -150,7 +180,7 @@ class App():
         '''
         try:
             t = tool.Time()
-            picNam = t.get_now_time() + ".jpg"
+            picNam = t.get_now_time() + ".png"
             self.lg.info("保存图片：%s" % picNam)
             os.chdir(self.SCR_PATH)
             self.driver.save_screenshot(picNam)
@@ -211,6 +241,16 @@ class App():
         except Exception as e:
             self.lg.error(e)
             self.lg.error("输入内容失败！")
+
+    def get_contests(self,waittime=1):
+        '''
+        获取上下文
+        :param waittime:
+        :return:
+        '''
+        time.sleep(waittime)
+        return self.driver.contexts
+
 
 
 # class Web():
