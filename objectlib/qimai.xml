@@ -14,5 +14,10 @@
             <rank_table type="xpath" value="//table[@class='data-table']/tbody/tr" desc="安卓榜单页表格"></rank_table>
             <rank_tittle type="css selector" value="div.full-title" desc="榜单标题"></rank_tittle>
         </android_rank_page>
+        <android_search_page>
+             <android_search_list type="class name" value="ivu-table-row" desc="搜索结果列表"></android_search_list>
+            <android_search_tittle type="class name" value="full-title" desc="标题"></android_search_tittle>
+        </android_search_page>
+
 
 </page>
