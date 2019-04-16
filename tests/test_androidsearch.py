@@ -21,6 +21,7 @@ class TestAndroidSearch():
         ar.get_url(url)
         self.dr=ar.driver
         res=ar.get_list()
+        print(ar.get_tittle())
         assert expect==str(res)
 
 
