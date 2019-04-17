@@ -37,16 +37,21 @@ class News():
         else:
             return False
 
-
-        # print(self.driver.driver.page_source)
-
-
-
-        # print(el)
-
-        # self.driver.driver.find_element_by_android_uiautomator('new UiSelector().text("我的")').click()
+    def get_news_list(self):
+        elemYaowen=self.gx.get_xml_data("news_page","yaowen_link")
+        self.driver.wait_element(elemYaowen)
+        self.driver.click(elemYaowen)
+        elemNewsList=self.gx.get_xml_data("news_page","news_list")
+        self.driver.wait_element(elemNewsList)
+        newsList = self.driver.get_elements(elemNewsList)
+        print(len(newsList))
 
 
 if __name__=="__main__":
         n=News()
-        n.click_my()
+        try:
+            # n.click_my()
+            n.get_news_list()
+        finally:
+            n.driver.driver.quit()
+

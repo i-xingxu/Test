@@ -6,5 +6,7 @@
          <my_study_icon type="uiautomator" value="new UiSelector().text(&quot;我的&quot;)" desc="我的按钮"></my_study_icon>
         <web_view type="id" value="cn.xuexi.android:id/common_webview" desc="webview"></web_view>
         <study_point_icon type="xpath" value="//div[@class='weex-div apps-container']/div[1]" desc="我的积分"></study_point_icon>
+        <yaowen_link type="uiautomator" value="new UiSelector().text(&quot;要闻&quot;)" desc="要闻"></yaowen_link>
+        <news_list type="xpath" value="//*[@class='android.widget.ListView']/[@class='Sandroid.widget.RelativeLayout']" desc="新闻列表"></news_list>
     </news_page>
 </page>
